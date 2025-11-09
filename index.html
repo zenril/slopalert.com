@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stop the Slop</title>
+    <title>🛑 Stop the Slop</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,84 +14,272 @@
         }
         
         body {
-            font-family: 'Impact', 'Arial Black', sans-serif;
-            background: #000;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 100, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 100, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: bgPulse 10s ease-in-out infinite;
+        }
+        
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
         }
         
         .container {
-            background: #fff;
-            border: 10px solid #ff0000;
-            max-width: 700px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            max-width: 800px;
+            width: 100%;
             text-align: center;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 100px rgba(255, 0, 100, 0.2),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .slogan {
-            font-size: 5rem;
+            font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 900;
-            color: #ff0000;
-            padding: 30px 20px;
+            background: linear-gradient(135deg, #ff0844 0%, #ff6b6b 50%, #ff0844 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding: 40px 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 3px 3px 0px #000;
-            background: #ffff00;
-            border-bottom: 10px solid #ff0000;
+            letter-spacing: -1px;
+            animation: gradientShift 3s ease infinite, float 3s ease-in-out infinite;
+            position: relative;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
         
         .meme-container {
             padding: 40px;
-            background: #fff;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
         }
         
         .meme-image {
             width: 100%;
             max-width: 500px;
-            border: 5px solid #000;
+            border-radius: 16px;
             margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .meme-image:hover {
+            transform: scale(1.02) rotate(-1deg);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
         }
         
         .shame-text {
-            font-size: 2.5rem;
-            color: #000;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: #1a1a2e;
             margin: 30px 0;
-            line-height: 1.2;
-            text-transform: uppercase;
-            font-weight: 900;
+            line-height: 1.3;
+            font-weight: 700;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .callout {
-            background: #ff0000;
+            background: linear-gradient(135deg, #ff0844 0%, #ff6b6b 100%);
             color: #fff;
             padding: 30px;
-            font-size: 1.8rem;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
             font-weight: 900;
             text-transform: uppercase;
             margin: 0;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
         }
         
         .consequences {
-            padding: 40px;
-            background: #ffff00;
-            font-size: 1.5rem;
-            color: #000;
-            font-weight: 900;
-            line-height: 1.6;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe7a0 100%);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: #1a1a2e;
+            font-weight: 600;
+            line-height: 1.8;
         }
         
         .consequences p {
-            margin: 15px 0;
+            margin: 20px 0;
+            opacity: 0;
+            animation: slideIn 0.5s ease-out forwards;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: transform 0.2s ease;
+        }
+        
+        .consequences p:hover {
+            transform: translateX(10px);
+        }
+        
+        .consequences p:nth-child(1) { animation-delay: 0.1s; }
+        .consequences p:nth-child(2) { animation-delay: 0.2s; }
+        .consequences p:nth-child(3) { animation-delay: 0.3s; }
+        .consequences p:nth-child(4) { animation-delay: 0.4s; }
+        .consequences p:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .consequences p::before {
+            content: '✗';
+            font-size: 1.8em;
+            color: #ff0844;
+            font-weight: 900;
         }
         
         .bottom-text {
-            background: #000;
-            color: #00ff00;
-            padding: 20px;
-            font-size: 1.2rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f23 100%);
+            color: #00ff88;
+            padding: 40px 30px;
+            font-size: clamp(1rem, 2vw, 1.2rem);
             font-family: 'Courier New', monospace;
+            line-height: 2;
+            text-align: left;
+            position: relative;
+        }
+        
+        .bottom-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+        }
+        
+        .bottom-text > div {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .bottom-text > div:nth-child(1) { animation-delay: 0.2s; }
+        .bottom-text > div:nth-child(2) { animation-delay: 0.4s; }
+        .bottom-text > div:nth-child(3) { animation-delay: 0.6s; }
+        
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1em;
+            background: #00ff88;
+            animation: blink 1s step-end infinite;
+            margin-left: 4px;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 16px;
+            }
+            
+            .slogan {
+                padding: 30px 15px;
+            }
+            
+            .meme-container,
+            .consequences {
+                padding: 30px 20px;
+            }
+            
+            .bottom-text {
+                padding: 30px 20px;
+                text-align: center;
+            }
+            
+            .consequences p {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -141,11 +331,11 @@
         </div>
         
         <div class="consequences">
-            <p>✗ The generic phrasing</p>
-            <p>✗ The robotic tone</p>
-            <p>✗ The suspiciously perfect grammar</p>
-            <p>✗ The complete lack of personality</p>
-            <p>✗ The "delve" and "leverage"</p>
+            <p>The generic phrasing</p>
+            <p>The robotic tone</p>
+            <p>The suspiciously perfect grammar</p>
+            <p>The complete lack of personality</p>
+            <p>The "delve" and "leverage"</p>
         </div>
         
         <div class="callout">
@@ -153,9 +343,9 @@
         </div>
         
         <div class="bottom-text">
-            &gt; AI is a tool, not a replacement for effort<br>
-            &gt; Edit your output before hitting send<br>
-            &gt; Or just... write it yourself?
+            <div>&gt; AI is a tool, not a replacement for effort</div>
+            <div>&gt; Edit your output before hitting send</div>
+            <div>&gt; Or just... write it yourself?<span class="terminal-cursor"></span></div>
         </div>
     </div>
 </body>
